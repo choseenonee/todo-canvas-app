@@ -6,6 +6,8 @@ import { TaskList } from './pages/TaskList';
 
 const initializeAssistant = (getState /*: any*/, getRecoveryState) => {
   if (process.env.NODE_ENV === 'development') {
+    console.log('token', process.env.REACT_APP_TOKEN)
+    console.log('app', process.env.REACT_APP_SMARTAPP)
     return createSmartappDebugger({
       token: process.env.REACT_APP_TOKEN ?? '',
       initPhrase: `Запусти ${process.env.REACT_APP_SMARTAPP}`,
@@ -101,6 +103,9 @@ export class App extends React.Component {
         case 'delete_note':
           return this.delete_note(action);
 
+        case 'get_taro':
+          return this.get_taro(action);
+
         default:
           throw new Error();
       }
@@ -162,6 +167,10 @@ export class App extends React.Component {
     this.setState({
       notes: this.state.notes.filter(({ id }) => id !== action.id),
     });
+  }
+
+  get_taro(id) {
+    return "сегодня вам повезёт!"
   }
 
   render() {
